@@ -1,11 +1,11 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializers import TeacherSerializer, StudentSerializer
+from .serializers import TeacherSerializer, StudentSerializer, LoginSerializer
 # from rest_framework import viewsets
 from .models import Teacher, Student
 from rest_framework import generics
 
-from rest_framework import status
+from rest_framework import status, filters
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 
 from .models import Teacher
@@ -22,10 +22,30 @@ def index(request):
 #     queryset = Teacher.objects.all()
 #     serializer_class = TeacherSerializer
 
+@api_view(['POST'])
+def login(request):
+    data = request.data 
+    serializer = LoginSerializer(data = data)
+
+    if serializer.is_valid():
+        data = serializer.data
+        print(data)
+        return Response({"message": "success"})
+    return Response(serializer.errors)
+
+
 
 class TeacherListCreateView(ListCreateAPIView):
     queryset = Teacher.objects.all()
     serializer_class = TeacherSerializer
+
+    def get_queryset(self):
+        queryset = Teacher.objects.all()
+        search_name = self.request.query_params.get('search', None)  # `search` query parameter ta niye aschi
+        if search_name:
+            queryset = queryset.filter(teacher_name__startswith=search_name) # teacher_name "m" diye start hole filter
+        return queryset
+       
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
