@@ -16,6 +16,8 @@ from django.contrib.auth import authenticate
 from rest_framework.decorators import permission_classes
 from rest_framework.permissions import AllowAny
 
+from rest_framework.pagination import PageNumberPagination
+
 @api_view(['GET']) 
 def index(request):
     return Response({"message": "Hello, Welcome to Tech-Hub API!"})
@@ -102,9 +104,30 @@ class TeacherDetailView(RetrieveUpdateDestroyAPIView):
         )
 
 
+# class StudentPagination(PageNumberPagination):
+#     page_size = 3  # Per page 3 ta student
+#     page_size_query_param = 'page_size'
+#     max_page_size = 10
+
+
 class StudentListCreateAPIView(generics.ListCreateAPIView):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
+
+    # pagination_class = StudentPagination  # Pagination add kora holo
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        page = int(request.query_params.get('page', 1))  # Default page 1
+        page_size = 3  # Protita page e 3 ta student show korbe
+
+        start = (page - 1) * page_size
+        end = start + page_size
+        paginated_queryset = queryset[start:end]
+
+        serializer = self.get_serializer(paginated_queryset, many=True)
+        return Response(serializer.data)  # Just student data return korbe
+
 
 class StudentRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Student.objects.all()
