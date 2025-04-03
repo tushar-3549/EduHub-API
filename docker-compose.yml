@@ -1,0 +1,12 @@
+version: '3'  # Docker Compose version
+
+services:
+  web:
+    build: .  # Dockerfile theke image build hobe
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"  # Django app start hobe
+    container_name: edu-hub-api  # Container name set kora
+    volumes:
+      - .:/app  # Mount the whole project directory
+    ports:
+      - "8001:8000"  # Host port 8001 ke container port 8000 sathe map kora
+    
