@@ -28,31 +28,6 @@ To set up and run the Edu-Hub API project locally, follow these steps:
    cd edu-hub-api
 ```
 
-
-### ER Diagram:
-
-+------------+      1      +------------+      *      +------------+
-|  Course    | <---------> |  Teacher   | <---------> |  Student   |
-+------------+             +------------+             +------------+
-| course_code| PK          | teacher_id | PK          | student_id | PK
-| title      |            | name       |            | f_name     |
-| duration   |            | phone      |            | l_name     |
-+------------+            | hire_date  |            | sur_name   |
-                          | salary     |            | email      |
-                          | is_active  |            | dept       |
-                          | course_id  | FK         | address    |
-                          +------------+            +------------+
-
-User Authentication:
-+------------+
-|   User     |
-+------------+
-| username   |
-| email      |
-| password   |
-+------------+
-
-
 ### Set Up the Virtual Environment
 
 ```python3 -m venv venv
@@ -80,3 +55,27 @@ venv\Scripts\activate  # For Windows
 
     Open your browser and go to `http://127.0.0.1:8000/` to access the API endpoints.
 
+
+### ER Diagram: 
+```
++------------+      1      +------------+      *      +------------+
+|  Course    | <---------> |  Teacher   | <---------> |  Student   |
++------------+             +------------+             +------------+
+| course_code| PK          | teacher_id | PK          | student_id | PK
+| title      |            | name       |            | f_name     |
+| duration   |            | phone      |            | l_name     |
++------------+            | hire_date  |            | sur_name   |
+                          | salary     |            | email      |
+                          | is_active  |            | dept       |
+                          | course_id  | FK         | address    |
+                          +------------+            +------------+
+
+User Authentication:
++------------+
+|   User     |
++------------+
+| username   |
+| email      |
+| password   |
++------------+
+```
