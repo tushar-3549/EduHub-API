@@ -1,4 +1,4 @@
-## EduHub API - Django REST
+### EduHub API - Django REST
 
 #### Project Overview
 The Edu-Hub API is a web-based application built with Django REST Framework (DRF) that facilitates CRUD operations for managing teachers, students, and courses. The admin is able to assign courses to teachers, and JWT authentication is used for secure access to the API endpoints. The project also incorporates pagination for the student API endpoint, and it is designed to be deployed using Docker and Docker Compose for efficient containerized management.
@@ -17,7 +17,7 @@ The Edu-Hub API is a web-based application built with Django REST Framework (DRF
 
    🗃️ Database: Default support with SQLite3 for storing data
 
-🛠️ ### Tech Stack
+ ### 🛠️ Tech Stack
 - Backend: Django REST Framework
 - Database: SQLite3 (default database)
 - Security: JWT Authentication
